@@ -1,12 +1,32 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState, useEffect } from 'react';
+import { ArrowRight, Menu, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Hero from '@/components/Hero';
+import Features from '@/components/Features';
+import About from '@/components/About';
+import Contact from '@/components/Contact';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const Index = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-white">
+      <Navigation isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} scrollY={scrollY} />
+      <Hero />
+      <Features />
+      <About />
+      <Contact />
+      <Footer />
     </div>
   );
 };
